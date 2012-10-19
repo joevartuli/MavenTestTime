@@ -5,7 +5,7 @@ import glob
 import re
 import argparse
 
-filePatternToTest="TEST-*"
+filePatternToTest="TEST-"
 timeRegex="time=\"[0-9]*(\.[0-9]*)*\""
 classNameRegex="classname=\"[A-Za-z0-9\.]*\""
 nameRegex="name=\"[A-Za-z0-9_]*\""
@@ -13,7 +13,6 @@ testCases = []
 baseDirectory = '.'
 
 def main():
-	changeDirectory()
 	files = findFiles()
 	readFiles(files)
 	testCases = sortTestCases()
@@ -21,12 +20,15 @@ def main():
 	for item in testCases:
 		print item
 
-def changeDirectory():
-	os.chdir(baseDirectory)
-
 #Find all surefire reports in the current directory
 def findFiles():
-	return glob.glob(filePatternToTest)
+	tests = []
+	for path,dirName,fileNames in os.walk(baseDirectory):
+		for fileName in fileNames:
+			if fileName.startswith(filePatternToTest):			
+				tests.append(os.path.join(path,fileName))
+
+	return tests
 
 #Read each surefire report and pass the content to parseContent method
 def readFiles(files):
