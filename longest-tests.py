@@ -17,6 +17,8 @@ def main():
 	readFiles(files)
 	testCases = sortTestCases()
 	testCases.reverse()
+	print "Running test cases"
+	print "============================="
 	for item in testCases:
 		print item
 
