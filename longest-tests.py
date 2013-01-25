@@ -52,6 +52,7 @@ def getValues(testCase):
 	timeAttribute = re.search(timeRegex, testCase)
 	if timeAttribute != None:
 		timeAttribute = timeAttribute.group(0)
+		timeAttribute = float(timeAttribute[6:-1])
 
 	classnameAttribute = re.search(classNameRegex, testCase)
 	if classnameAttribute != None:
